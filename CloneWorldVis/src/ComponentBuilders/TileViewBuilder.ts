@@ -36,6 +36,32 @@ namespace ComponentBuilders {
 
             this.generateStatistics(cloneDataSet);
             this.generateVisualization(cloneDataSet, selectedRangeUpdatedHandler);
+
+            this.initiateMouseSelection(cloneDataSet, selectedRangeUpdatedHandler);
+        }
+
+        private initiateMouseSelection(cloneDataSet: Models.CloneDataSet, selectedRangeUpdatedHandler: (selectedClones: Models.CloneInstance[]) => void) {
+            this.mouseSelection.start = [0, .5];
+            this.mouseSelection.end = [.3, .05];
+
+            var startPosition = this.getAbsoluteCoordinate(this.mouseSelection.start, this.tile);
+                    var endPosition = this.getAbsoluteCoordinate(this.mouseSelection.end, this.tile);
+                    this.mouseSelectionRect.attr("x", Math.min(startPosition[0], endPosition[0]))
+                        .attr("y", Math.min(startPosition[1], endPosition[1]))
+                        .attr("width", d => Math.max(startPosition[0], endPosition[0]) - Math.min(startPosition[0], endPosition[0]))
+                        .attr("height", d => Math.max(startPosition[1], endPosition[1]) - Math.min(startPosition[1], endPosition[1]))
+                        .attr("opacity", .3);
+            var rangedCloneList: Models.CloneInstance[] = [];
+            for (const clone of cloneDataSet.cloneList) {
+                let minX = Math.min(this.mouseSelection.start[0], this.mouseSelection.end[0]);
+                let maxX = Math.max(this.mouseSelection.start[0], this.mouseSelection.end[0]);
+                let minY = Math.min(this.mouseSelection.start[1], this.mouseSelection.end[1]);
+                let maxY = Math.max(this.mouseSelection.start[1], this.mouseSelection.end[1]);
+                if (clone.x >= minX && clone.x <= maxX && clone.y >= minY && clone.y <= maxY) {
+                    rangedCloneList.push(clone);
+                }
+            }
+            selectedRangeUpdatedHandler(rangedCloneList);
         }
 
         private generateVisualization(
