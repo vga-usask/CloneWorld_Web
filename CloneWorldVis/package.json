@@ -1,0 +1,7 @@
+{
+  "name": "clone-world-vis",
+  "dependencies": {
+    "@types/d3": "^5.0.0",
+    "@types/split.js": "^1.3.1"
+  }
+}

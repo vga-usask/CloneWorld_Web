@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CloneWorldPreprocessing": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Program Files\\Microsoft\\R Client\\R_SERVER\\bin\\Rscript.exe\""
+    }
+  }
+}
