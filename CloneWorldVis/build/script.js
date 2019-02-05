@@ -787,6 +787,10 @@ var Models;
 var ComponentBuilders;
 (function (ComponentBuilders) {
     class ForceLayoutBuilder extends ComponentBuilders.SvgBuilder {
+        constructor() {
+            super(...arguments);
+            this.sampleSourceCodeShowed = false;
+        }
         buildExtra() {
             super.buildExtra();
             this.mainSelection.classed("main", true);
@@ -840,6 +844,12 @@ var ComponentBuilders;
             });
         }
         nodeShapeUpdated(shapeGetter, sizeGetter, nodeHoverHandler, nodeDragHandler, contextMenuItemList) {
+            if (this.sampleSourceCodeShowed == false && contextMenuItemList && contextMenuItemList.length == 3 && this.currentCloneList && this.currentCloneList.length >= 3) {
+                contextMenuItemList[0].clickHandler(this.currentCloneList[0]);
+                contextMenuItemList[1].clickHandler(this.currentCloneList[1]);
+                contextMenuItemList[2].clickHandler(this.currentCloneList[2]);
+                this.sampleSourceCodeShowed;
+            }
             var colors = d3.scaleOrdinal().domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(toString)).range(["#996666", "#66CCCC", "#FFFF99", "#CC9999", "#666633", "#993300", "#999966", "#660000", "#996699", "#cc6633", "#ff9966", "#339999", "#6699cc", "#ffcc66", "#ff6600", "#00ccccc"]);
             var svgSelection = this.mainSelection;
             var nodeSelection = this.mainSelection.selectAll(".zoomable-g g.node");
