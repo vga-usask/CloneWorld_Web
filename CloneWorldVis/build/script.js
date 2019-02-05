@@ -283,7 +283,8 @@ var ComponentBuilders;
             control.append("br");
             control.append("input")
                 .attr("type", "text")
-                .classed("control-interact", true);
+                .classed("control-interact", true)
+                .style("width", "90%");
             this.updateTextBoxControl(control, enabled, label, changedHandler, defaultValue);
             control.append("br");
             control.append("label").classed("control-text-box-result-text", true);
@@ -312,6 +313,7 @@ var ComponentBuilders;
             control.append("input")
                 .attr("type", "range")
                 .classed("control-interact", true)
+                .style("width", "90%")
                 .on("input", () => {
                 var ele = control.select("input").node();
                 control.select("label.control-slider-value-text").text(" " + ele.value + " ");
@@ -367,7 +369,9 @@ var ComponentBuilders;
         generateDropDownControl(container, enabled, label, options, changedHandler, defaultValue) {
             var control = this.generateControlItem(container);
             control.append("br");
-            control.append("select").classed("control-interact", true);
+            control.append("select")
+                .classed("control-interact", true)
+                .style("width", "90%");
             this.updateDropDownControl(control, enabled, label, options, changedHandler, defaultValue);
             return control;
         }
